@@ -57,23 +57,21 @@
 	{
 		$winery_name = $_GET["winery_name"];
 	} 
-
-	// search query
-
-	$search_query = "SELECT wine_name, year
-					 FROM wine
-					 WHERE wine_name = '{$wine_name}' ";
-					
-	$search_result = mysql_query($search_query, $connection);
-
-
-	/*
-	$search_query = "SELECT wine.wine_name, grape_variety.variety, wine.year, winery.winery_name, region.region_name
-					 FROM wine, grape_variety, winery, region, wine_variety
+	
+	$search_query = "SELECT DISTINCT wine.wine_id, wine.wine_name, grape_variety.variety, wine.year, winery.winery_name, 
+							region.region_name, inventory.cost, inventory.on_hand, SUM(items.qty), SUM(items.qty*items.price)
+					 FROM wine, grape_variety, wine_variety, winery, region, inventory, items
 					 WHERE wine.wine_id = wine_variety.wine_id
 					 AND wine_variety.variety_id = grape_variety.variety_id
-					 AND "
-	*/				 
+					 AND wine.winery_id = winery.winery_id
+					 AND winery.region_id = region.region_id
+					 AND wine.wine_id = inventory.wine_id
+					 AND wine.wine_id = items.wine_id
+					 AND wine.wine_name = '{$wine_name}' 
+					 GROUP BY items.wine_id ";
+					 
+					 
+	$search_result = mysql_query($search_query, $connection);
 
 
 
