@@ -15,28 +15,55 @@ include("connect.php");
 	<body>
 		<!-- Background images and texture -->
 		<div class="main_box">
-<!-- 			<div class="background_img"></div>
- -->
+
 			<div class="title2">RESULTS <br> _________________ </div>
 
-			<?php
-			//echo $_GET['wine_name'];
-			//echo $wine_name;
+			<table style="margin-top: 20px;">
+				<tr> 
+					<td class="results_header">ID</td>
+					<td class="results_header">Wine</td>
+					<td class="results_header">Variety</td>
+					<td class="results_header">Year</td>
+					<td class="long_results_header">Winery</td>
+					<td class="long_results_header">Region</td>
+					<td class="results_header">Cost</td>
+					<td class="results_header">Available</td>
+					<td class="results_header">Sold</td>
+					<td class="results_header">Revenue</td>
+				</tr>
 
+				<?php
+				//echo $_GET['wine_name'];
+				//echo $wine_name; FFA200  D28A03
 
-			while ($row = mysql_fetch_row($search_result)) // while there are more rows
-			{
-				for ($i = 0; $i < mysql_num_fields($search_result); $i++) // for each column in the current row
+				// To alternate row color
+				$paint = 0;
+
+				// while there are more rows
+				while ($row = @ mysql_fetch_row($search_result)) 
 				{
-					echo $row[$i] . " ";
-				}	
-				echo "\n";
-			}				
-			
-			mysql_close($connection);
-			
-			?>
+					// Condition to alternate row color
+					if ($paint == 0) {
+						echo " \n <tr>";
+						$paint = 1;
+					}
+					else {
+						echo " \n <tr class='row_alt'>";
+						$paint = 0;
+					}
+					// for each column in the current row
+					for ($i = 0; $i < mysql_num_fields($search_result); $i++) 
+					{
+						echo "  \n\t <td> {$row[$i]} </td> " ;
+					}	
 
+					echo "\n </tr>";
+				}				
+				
+				mysql_close($connection);
+				
+				?>
+			</table>
 
 	</body>
 
