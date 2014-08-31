@@ -1,0 +1,75 @@
+/* GENERAL CONTETNT
+----------------------------------------------------------------------------------------------------*/
+/* Background images and texture -*/
+
+/*body {
+	background-image:url(../images/001_wine.png),url(../images/002_background3.jpg); 
+	background-repeat:repeat-x, repeat;
+}
+*/
+
+.main_box{
+	position: absolute;
+	height: 350px;
+    width: 640px;
+    left: 25%;
+    right: 320px;
+    top: 100px;
+}
+
+
+.background_img {
+	background-image:url("../images/001_wine.png");
+	background-repeat: no-repeat;
+	background-size: 450px 350px;
+    height: 350px;
+    position: absolute;
+    top: 70px;
+    width: 330px;
+}
+
+.form {
+	font-family: 'droid_serifregular';
+	font-size:15px;
+	color: #777777;
+	position: absolute;
+	left: 280px;
+	top: 30px;
+}
+
+
+/* table */
+
+.title1 {
+	font-family: 'droid_serifbold';
+	font-size:18px;
+	color: #888888;
+	text-align: right;
+	width: 553px;
+	line-height: 8px;
+}
+
+.title2 {
+	font-family: 'droid_serifbold';
+	font-size:18px;
+	color: #888888;
+	text-align: left;
+	width: 553px;
+	line-height: 8px;
+}
+
+td.right {
+	text-align: right;
+	width: 100px;
+}
+
+td.left {
+	text-align: left;
+	padding: 5px 10px;
+}
+
+input.search_but {
+	left: 220px;
+    margin-top: 10px;
+	position: relative;
+}
