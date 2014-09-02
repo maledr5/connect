@@ -1,6 +1,10 @@
 <?php
+
+echo $_GET['wine_name'];
 include("connect.php");
+
 ?>
+
 
 <!DOCTYPE HTML>
 <html>
@@ -18,7 +22,7 @@ include("connect.php");
 
 			<div class="title2">RESULTS <br> _________________ </div>
 
-			<table style="margin-top: 20px;">
+			<table style="margin-top: 20px; padding-bottom: 100px;">
 				<tr> 
 					<td class="results_header">ID</td>
 					<td class="results_header">Wine</td>

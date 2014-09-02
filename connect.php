@@ -1,7 +1,8 @@
 <?php
-	
+
 	// Turn off all error reporting
-   error_reporting(0);
+    error_reporting(0);
+	// define('SCRIPT_DEBUG', true);
 
 	require_once('db.php');
 
@@ -31,13 +32,14 @@
 	$max_year_result = mysql_query($max_year_query, $connection);
 
 	// function to display results in the form
+
 	function display_query($result)
 	{
 		while ($row = mysql_fetch_row($result)) // while there are more rows
 		{
 			for ($i = 0; $i < mysql_num_fields($result); $i++) // for each column in the current row
 			{
-				echo "<option value='{$row[$i]}'> {$row[$i]} </option>";
+				echo "<option value='" . $_GET['region'] . "'> {$row[$i]} </option>";
 			}	
 		}
 	}
@@ -48,15 +50,17 @@
 
 	// assign variables for queries
 
-	if (isset($_GET["wine_name"]))
-	{
-		$wine_name = $_GET["wine_name"];
-	} 
+	// $wine_name = $_GET["wine_name"];
+
+	// if (isset($_GET["wine_name"]))
+	// {
+	// 	$wine_name = $_GET["wine_name"];
+	// } 
 	
-	if (isset($_GET["winery_name"]))
-	{
-		$winery_name = $_GET["winery_name"];
-	} 
+	// if (isset($_GET["winery_name"]))
+	// {
+	// 	$winery_name = $_GET["winery_name"];
+	// } 
 	
 	$search_query = "SELECT DISTINCT wine.wine_id, wine.wine_name, grape_variety.variety, wine.year, winery.winery_name, 
 							region.region_name, inventory.cost, inventory.on_hand, SUM(items.qty), SUM(items.qty*items.price)
@@ -66,10 +70,23 @@
 					 AND wine.winery_id = winery.winery_id
 					 AND winery.region_id = region.region_id
 					 AND wine.wine_id = inventory.wine_id
-					 AND wine.wine_id = items.wine_id
-					 AND wine.wine_name = '{$wine_name}' 
-					 GROUP BY items.wine_id ";
-					 
+					 AND wine.wine_id = items.wine_id";
+
+	// values specified by the user - concatenation
+
+	// if (isset($wine_name)) {
+	// 	$search_query .= " AND wine.wine_name = '{$_GET["wine_name"]}'";
+	// }
+	// if (isset($_GET["winery_name"])) {
+	// 	$search_query .= " AND winery.winery_name = '{$_GET["winery_name"]}'";
+	// }
+
+
+
+	$search_query .= " GROUP BY items.wine_id 
+					  ORDER BY wine.wine_name";
+
+	// echo $search_query;				
 					 
 	$search_result = mysql_query($search_query, $connection);
 
