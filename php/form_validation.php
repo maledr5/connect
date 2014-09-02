@@ -1,14 +1,22 @@
 <?php
 
+/* FORM VALIDATION - SERVER SIDE
+----------------------------------------------------------------------------------------------------*/
+/* If form is submmited, call function form_validation. If all data is correct, redirect to the 
+results page to display the search results.  */
+
 if(isset($_GET['wine_name']))
 {
  	// Validates the submitted data on the server side
-	$check = form_validation($_GET['wine_name'], $_GET['winery_name'], $_GET['region'], $_GET['variety'], $_GET['wines_stock'], 
-		$_GET['wines_ordered'], $_GET['min_year'], $_GET['max_year'], $_GET['min_price'], $_GET['max_price'] );
+	$check = form_validation($_GET['wine_name'], $_GET['winery_name'], $_GET['region'], $_GET['variety'], 
+		$_GET['wines_stock'], $_GET['wines_ordered'], $_GET['min_year'], $_GET['max_year'], 
+		$_GET['min_price'], $_GET['max_price'] );
 
 	if ($check) {
-		// $wine_name = $_GET['wine_name'];
-		header('Location: results.php?wine_name='.$_GET['wine_name']);
+		header('Location: results.php?wine_name='.$_GET['wine_name'].'&winery_name='.$_GET['winery_name'].
+			'&region='.$_GET['region'].'&variety='.$_GET['variety'].'&wines_stock='.$_GET['wines_stock'].
+			'&wines_ordered='.$_GET['wines_ordered'].'&min_year='.$_GET['min_year'].
+			'&max_year='.$_GET['max_year'].'&min_price='.$_GET['min_price'].'&max_price='.$_GET['max_price']);
 	}
 }
 
@@ -18,10 +26,9 @@ if(isset($_GET['wine_name']))
 Not need to validate require fields, because any of them is required. 
 Also will refine strings using trim(), stripslashes() and htmlspecialchars() functions.*/
 
-
-// $msg1 = $val2 = $val3 = $val4 = $val5 = $val6 = $val7 = false;
-
-function form_validation($wine_name, $winery_name, $region, $variety, $stock, $ordered, $year_from, $year_to, $range_min, $range_max) {
+function form_validation($wine_name, $winery_name, $region, $variety, $stock, $ordered, $year_from, 
+	$year_to, $range_min, $range_max) 
+{
 
 	// Variables for error messages
 	global $msg1, $msg2, $msg3, $msg4, $msg5, $msg6;
@@ -52,7 +59,7 @@ function form_validation($wine_name, $winery_name, $region, $variety, $stock, $o
 	// Validates the correct year range (Min can not be greater than Max)
 	if ($val3 && $val4)
 	{
-		$val6 = check_number($range_min, $range_max);
+		$val6 = cost_range($range_min, $range_max);
 		if (!$val6)
 			$msg6 = "'Min' can't be greater than 'Max'";
 	}
@@ -60,7 +67,6 @@ function form_validation($wine_name, $winery_name, $region, $variety, $stock, $o
 	// If any error exists, don't go on
 	if ($val1 && $val2 && $val3 && $val4 && $val5 && $val6)
 	{
-		// set_variables($wine_name);
 		return true;
 	}
 	else 

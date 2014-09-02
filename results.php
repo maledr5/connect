@@ -1,10 +1,7 @@
 <?php
-
-echo $_GET['wine_name'];
+// echo $_GET['wine_name'];
 include("connect.php");
-
 ?>
-
 
 <!DOCTYPE HTML>
 <html>
@@ -37,8 +34,6 @@ include("connect.php");
 				</tr>
 
 				<?php
-				//echo $_GET['wine_name'];
-				//echo $wine_name; FFA200  D28A03
 
 				// To alternate row color
 				$paint = 0;

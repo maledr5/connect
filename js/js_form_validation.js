@@ -26,9 +26,14 @@ function form_validation() {
 	// Validates the correct year range (Min can not be greater than Max)
 	val4 = check_number(range_min, "validation4");
 	val5 = check_number(range_max, "validation5");
-	if (val4 && val5) 
+
+	if (val4 && val5 && check_empty(range_min) && check_empty(range_max)) 
 	{
 		val6 = cost_range(range_min, range_max, "validation6");
+	} 
+	else 
+	{
+		val6 = true;
 	}
 	
 	// If any error exists, don't go on
@@ -85,6 +90,19 @@ function cost_range(range_min, range_max, error_id)
 	else
 	{
 		document.getElementById(error_id).innerHTML = " ";
+		return true;
+	}
+}
+
+// Checks if cost range numbers are empty
+function check_empty(number)
+{ 
+	if (number == null || number == "" || number.match(/^s+$/))
+	{
+		return false;
+	}
+	else
+	{
 		return true;
 	}
 }

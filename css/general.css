@@ -101,6 +101,16 @@ tr.row_alt {
 	background-color: #E6E1D8;
 }
 
+td.error {
+	text-align: left;
+}
+
+span#validation1, #validation2, #validation3, #validation4, #validation5, #validation6 {
+	color: #99CCCC;
+	line-height: 2px;
+	text-align: left;
+}
+
 /*tr.row_alt2 {
 	background-color: #F7F0E4;
 }*/
